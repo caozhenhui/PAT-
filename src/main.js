@@ -9,8 +9,9 @@ import 'mint-ui/lib/style.css'
 import '../static/css/common.scss'
 import '../static/css/my-mint.scss'
 import './moudles/rem.js'
-import { MessageBox } from 'mint-ui';
+import { MessageBox, Toast } from 'mint-ui';
 Vue.prototype.$message = MessageBox;
+Vue.prototype.$toast = Toast;
 
 Vue.use(MintUI)
 

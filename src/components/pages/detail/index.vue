@@ -61,6 +61,10 @@ export default {
                 });
                 return false;
             };
+            this.$toast({
+                message: '操作成功',
+                iconClass: 'icon icon-success'
+            });
             let obj = {
                 number: this.number,
                 name: this.name
