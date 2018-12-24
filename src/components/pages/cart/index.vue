@@ -1,11 +1,19 @@
 <template>
     <div class="cart-box">
+        <p v-if="lists.length === 0" class="no-list">
+            还没有任何订单
+        </p>
         <ul>
             <li v-for="(item , index) in lists" 
                 :key="index"                
                 @touchstart='touchStart($event,index)' 
                 @touchend='touchEnd'>
-                <div :class="[item.isShow?'margin':'', 'name']">{{item.name}}</div>
+                <div :class="[item.isShow?'margin':'', 'name']">
+                    <input type="checkbox" 
+                        @click="handlerCheck(index)"
+                        :checked="item.checkbox"/>
+                    {{item.name}}
+                </div>
                 <div class="number">数量:{{item.number}}</div>
                 <div class="price">￥{{item.number*item.price}}</div>
                 <div class="btn-box">
@@ -16,7 +24,11 @@
             </li>
         </ul>
         <div class="call-boss">
-            <p>总价：￥{{totalPrice}}</p>
+            <p>
+                全选：
+                <input type="checkbox" class="total-check" :checked="totalCheck" @click="handlerOnoff"/>
+                总价：￥{{totalPrice}}
+            </p>
             <mt-button class="btn phone" @click="callBoss">
             联系店主
             </mt-button>
@@ -34,7 +46,8 @@ export default {
     name:'Cart',
     data () {
         return {
-            lists:[]
+            lists:[],
+            totalCheck:false
         }
     },
     created () {
@@ -46,11 +59,28 @@ export default {
             this.lists = lists;
         }
     },
+    watch:{
+        lists: {
+            handler () {
+                for (let i = 0; i < this.lists.length; i++) {
+                    if (!this.lists[i].checkbox) {
+                        this.totalCheck = false;
+                        break;
+                    }else {
+                        this.totalCheck = true;
+                    }
+                }
+            },
+            deep:true
+        }
+    },
     computed:{
         totalPrice () {
             let totalPrice = 0;
             this.lists.forEach ( item => {
-                totalPrice += item.number*item.price
+                if (item.checkbox) {
+                    totalPrice += item.number*item.price
+                }
             })
             return totalPrice
         }
@@ -100,6 +130,13 @@ export default {
                     a.click()
                 }   
             });
+        },
+        handlerCheck (index) {
+            this.lists[index].checkbox = !this.lists[index].checkbox;
+            localStorage.patCart = JSON.stringify(this.lists);
+        },
+        handlerOnoff (e) {
+            
         }
     }
 }
@@ -108,6 +145,12 @@ export default {
 <style lang="scss" scoped>
     .cart-box{
         margin: 55px 0 110px 0;
+
+        .no-list {
+            text-align: center;
+            padding-top: 120px;
+            color: #666666;
+        }
 
         ul{
             padding: 0 0.1rem;
@@ -155,10 +198,13 @@ export default {
         .call-boss{
             bottom: 55px;
 
-            p{
-                width: 2.7rem;
+            .total-check{
+                margin-right: 0.3rem;
+            }
+
+            p{  
+                width: 2.7rem;  
                 float: left;
-                text-indent: 50px;
                 line-height: 55px;
                 font-size: 18px;
             }
