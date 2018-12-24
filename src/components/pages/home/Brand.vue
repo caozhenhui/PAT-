@@ -1,7 +1,7 @@
 <template>
     <div class="brand-box">
         <div class="brand" v-for="item in lists" :key="item.id">
-            <img :src="item.img" width="100%" height="100%"/>
+            <img v-lazy="item.img" width="100%" height="100%"/>
             <div class="title">
                 <h3>{{item.name}}</h3>
                 <h3 v-if="item.lastname">{{item.lastname}}</h3>
@@ -86,6 +86,10 @@ export default {
             margin-bottom: 10px;
             background: #ccc;
             position: relative;
+
+            img[lazy=loading] {
+                background: #ccc;
+            }
 
             .title{
                 width: 100%;

@@ -3,7 +3,8 @@
         <div class="img-box">
             <img src=''>
         </div>
-        <h3>TEST TEST TEST TEST</h3>
+        <h3>{{detailName}}</h3>
+        <p class="price">￥{{price}}</p>
         <div class="data-box">
             <p>快递：0.00</p>
             <p>月销：10</p>
@@ -38,11 +39,10 @@ export default {
     name:'Detail',
     data () {
         return {
-            number: 0,
-            name:'TEST洋洋3'
+            number: 0
         }
     },
-    props:['detailName'],
+    props:['detailName', 'price'],
     components:{
         BuyCart
     },
@@ -61,31 +61,46 @@ export default {
                 });
                 return false;
             };
-            this.$toast({
-                message: '操作成功',
-                iconClass: 'icon icon-success'
+            let toast = this.$toast({
+                message: '加载中...',
+                iconClass: 'fa fa-spinner fa-spin',
+                duration:-1
             });
             let obj = {
                 number: this.number,
-                name: this.name
+                name: this.detailName,
+                price: this.price
             };
             let list = JSON.parse(localStorage.getItem('patCart'));
+            let onOff = false; //开关
+            let num = ''; //下标
             if ( list && list.length > 0) {
-                for (let i = 0; i< list.length; i++) {
+                for (let i = 0; i< list.length; i++) {//检测本地是否存储过这个key
                     if (obj.name === list[i].name) {
-                        list[i].number += obj.number;
+                        onOff = true;
+                        num = i;
                         break;
-                    } else {
-                        list.unshift(obj);
-                        break;
-                    }
-                }
+                    };
+                };
+                if (onOff) {
+                    list[num].number += obj.number;
+                } else {
+                    list.unshift(obj);
+                };
                 localStorage.patCart = JSON.stringify(list);
             } else {
                 list = [];
                 list.unshift(obj);
                 localStorage.patCart = JSON.stringify(list);
-            }
+            };
+            setTimeout ( () => { 
+                toast.close();
+                this.$toast({
+                    message: '操作成功',
+                    iconClass: 'fa fa-check',
+                    duration: 800
+                });
+            }, 2000);
         }
     }
 }
@@ -105,6 +120,13 @@ export default {
             height: 30px;
             line-height: 30px;
             color: #333;
+        }
+
+        .price{
+            padding: 0 0.1rem;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ef4f4f;
         }
 
         .data-box{
@@ -148,6 +170,7 @@ export default {
                 height: 20px;
                 line-height: 20px;
                 border: none;
+                outline: none;
                 border-radius: 0;
                 margin: 0;
                 padding: 0;

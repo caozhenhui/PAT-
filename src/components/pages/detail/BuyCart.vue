@@ -1,5 +1,5 @@
 <template>
-    <div class="buy-cart-box">
+    <div class="call-boss">
         <mt-button class="btn phone" @click="callBoss">
            联系店主
         </mt-button>
@@ -29,24 +29,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-    .buy-cart-box {
-        position: fixed;
-        width: 100%;
-        height: 55px;
-        left: 0;
-        bottom: 0;
-        background: #efefef;
-
-        .btn{
-            width: 1rem;
-            height: 55px;
-            border-radius: 0;
-            float: right;
-        }
-        .phone{
-            background: #d43234;
-        }
-    }
-</style>

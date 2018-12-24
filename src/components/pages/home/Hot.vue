@@ -11,7 +11,7 @@
             </div>
             <div class="btn-box">
                 <mt-button size="small" class="btn"
-                @click="toDetail(item.name)">
+                @click="toDetail(item.name, item.price)">
                     立即购买
                 </mt-button>
             </div>
@@ -28,21 +28,21 @@ export default {
                 {
                     id: 0,
                     name: 'NYX经典眼影',
-                    price: '186',
+                    price: 186,
                     src: '../../../../static/imgs/sale1.jpg',
                     discount:'70%'
                 },
                 {
                     id: 1,
                     name: 'MK新款背包',
-                    price: '986',
+                    price: 986,
                     src: '../../../../static/imgs/sale2.jpg',
                     discount:'90%'
                 },
                 {
                     id: 2,
                     name: 'MAC子弹头',
-                    price: '146',
+                    price: 146,
                     src: '../../../../static/imgs/sale3.jpg',
                     discount:'70%'
                 }
@@ -50,11 +50,12 @@ export default {
         }
     },
     methods:{
-        toDetail (name) {
+        toDetail (name, price) {
             this.$router.push({
                 name:'Detail',
                 params: {
-                    detailName: name
+                    detailName: name,
+                    price: price
                 }
             })
         }
