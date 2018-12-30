@@ -34,9 +34,9 @@ export default {
     data () {
         return {
             bannerLists:[
-                {id:0, src:'../../../../static/imgs/banner1.jpg'},
-                {id:1, src:'../../../../static/imgs/banner1.jpg'},
-                {id:2, src:'../../../../static/imgs/banner1.jpg'}
+                {id:0, src:'/static/imgs/banner1.jpg'},
+                {id:1, src:'/static/imgs/banner2.jpg'},
+                {id:2, src:'/static/imgs/banner3.jpg'}
             ]
         }
     },

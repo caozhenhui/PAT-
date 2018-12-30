@@ -26,7 +26,8 @@ export default {
             tabbarLists:[
                 {
                     id:0, 
-                    title:'首页', src:'../static/imgs/home1.png'
+                    title:'首页', 
+                    src:'../static/imgs/home1.png'
                 },
                 {
                     id:1, 

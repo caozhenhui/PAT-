@@ -21,7 +21,7 @@
             @click="add">+</button>
             {{number}}
             <button class="num-btn btn"
-            @click="jian" v-if="number >= 1">-</button>
+            @click="jian" v-if="number > 1">-</button>
         </div>
         <div class="baby">
             {{'—  宝贝详情  —'}}
@@ -39,7 +39,7 @@ export default {
     name:'Detail',
     data () {
         return {
-            number: 0
+            number: 1
         }
     },
     props:['detailName', 'price'],
@@ -162,16 +162,15 @@ export default {
         .number{
             padding: 0 0.1rem;
             color: #666666;
-            height: 30px;
-            line-height: 30px;
+            height: 50px;
+            line-height: 50px;
 
             .num-btn{
-                width: 24px;
-                height: 20px;
-                line-height: 20px;
-                border: none;
-                outline: none;
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
                 border-radius: 0;
+                font-size: 22px;
                 margin: 0;
                 padding: 0;
                 color: #fff;

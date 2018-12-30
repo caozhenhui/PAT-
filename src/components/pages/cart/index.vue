@@ -55,6 +55,9 @@ export default {
             let lists = JSON.parse(localStorage.patCart);
             lists.forEach( item => {
                 item.isShow = false;
+                if (item.checkbox === undefined) {
+                    item.checkbox = false;
+                }
             });
             this.lists = lists;
         }
@@ -62,6 +65,10 @@ export default {
     watch:{
         lists: {
             handler () {
+                if (this.lists.length === 0) {
+                    this.totalCheck = false;
+                    return false;
+                };
                 for (let i = 0; i < this.lists.length; i++) {
                     if (!this.lists[i].checkbox) {
                         this.totalCheck = false;
@@ -135,8 +142,17 @@ export default {
             this.lists[index].checkbox = !this.lists[index].checkbox;
             localStorage.patCart = JSON.stringify(this.lists);
         },
-        handlerOnoff (e) {
-            
+        handlerOnoff () {
+            if (this.totalCheck) {
+                this.lists.forEach( item => {
+                    item.checkbox = false;
+                })
+            }else {
+                this.lists.forEach( item => {
+                    item.checkbox = true;
+                })
+            }
+            localStorage.patCart = JSON.stringify(this.lists);
         }
     }
 }
@@ -171,26 +187,27 @@ export default {
                 -ms-align-items: center;
 
                 .name {
-                    width: 1.6rem;
+                    width: 1.5rem;
                     transition: margin 0.5s;
                     -webkit-transition: margin 0.5s;
                     -ms-transition: margin 0.5s;
                     -moz-transition: margin 0.5s;
                     &.margin {
-                        margin-left: -60px;
+                        margin-left: -100px;
                     }
                 }
                 .number {
-                    width: 0.6rem;
+                    width: 0.5rem;
                     text-align: left;
                 }
                 .price {
                     width: 0.6rem;
                 }
                 .btn-box{
-                    width: 0.7rem;
-                    text-align: right;
-                    overflow: hidden;
+                    width: 0.8rem;
+                    max-width: 120px;
+                    display: flex;
+                    justify-content: space-around;
                 }
             }
         }
@@ -211,15 +228,14 @@ export default {
         }
     }
     .num-btn{
-        width: 24px;
-        height: 20px;
-        line-height: 20px;
-        border: none;
-        outline:none;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
         border-radius: 0;
         margin: 0;
         padding: 0;
         color: #fff;
+        font-size: 22px;
     }
     .btn-delele{
         white-space: nowrap;
