@@ -15,13 +15,13 @@ export default {
         callBoss () {
             this.$message({
                 title:'联系店主',
-                message:'Tel:18301436778(同微信)',
+                message:'Tel:XXXXXX(同微信)',
                 confirmButtonText:'拨打',
                 showCancelButton:true
             }).then(action => {
                 if (action === 'confirm') {
                     let a = document.createElement('a');
-                    a.setAttribute('href', 'tel:18301436778');
+                    a.setAttribute('href', 'tel:XXXXXX');
                     a.click()
                 }   
             });
